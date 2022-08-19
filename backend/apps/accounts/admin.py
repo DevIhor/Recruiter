@@ -1,11 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import User
+from django.contrib.auth import get_user_model
 from .forms import UserCreateForm, UserChangeForm
 from django.utils.translation import gettext_lazy as _
 
 
-@admin.register(User)
+@admin.register(get_user_model())
 class UserAdmin(BaseUserAdmin):
     """This class defines User representation at AdminBoard."""
 
