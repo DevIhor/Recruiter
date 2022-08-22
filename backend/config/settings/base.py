@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-
+from corsheaders.defaults import default_headers, default_methods
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Installed apps
-
+    'corsheaders',
     # Custom apps
     'apps.accounts',
 ]
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',    # new
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -121,3 +122,17 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# List of sites from which you can make requests to this project.
+# To enable CORS_ALLOWED_ORIGINS, change CORS_ALLOW_ALL_ORIGINS to False
+CORS_ALLOWED_ORIGINS = [
+    'http://127.0.0.1:8000',
+
+]
+
+CORS_ALLOW_ALL_ORIGINS = True 
+
+CORS_ALLOW_METHODS = list(default_methods) + []
+CORS_ALLOW_HEADERS = list(default_headers) + []
+
