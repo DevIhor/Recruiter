@@ -29,9 +29,7 @@ class UserManager(BaseUserManager):
 
         """
         if not email:
-            raise ValueError(
-                _("Email address is required.")
-            )
+            raise ValueError(_("Email address is required."))
 
         user = self.model(
             email=self.normalize_email(email),
@@ -54,9 +52,7 @@ class UserManager(BaseUserManager):
             additional fields of the user model
 
         """
-        user = self.create_user(
-            email, password, **kwargs
-        )
+        user = self.create_user(email, password, **kwargs)
         user.is_active = True
         user.is_superuser = True
         user.is_staff = True
