@@ -1,6 +1,6 @@
 from django.db import models
-from phonenumber_field.modelfields import PhoneNumberField
 from django.utils.translation import gettext_lazy as _
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Candidate(models.Model):
@@ -40,12 +40,14 @@ class Candidate(models.Model):
 
     class GenderChoices(models.TextChoices):
         """This class provides enum for gender types."""
+
         MALE = "M", _("Male")
         FEMALE = "F", _("Female")
         OTHER = "O", _("Other")
 
     class EnglishLevelChoices(models.TextChoices):
         """This class provides enum for levels of English."""
+
         UNKNOWN = "A0", _("Unknown")
         BEGINNER = "A1", _("Beginner")
         ELEMENTARY = "A2", _("Elementary")
@@ -56,6 +58,7 @@ class Candidate(models.Model):
 
     class Meta:
         """Standard Meta class for Candidate model."""
+
         ordering = ("surname", "name")
 
     name = models.CharField(
@@ -68,11 +71,7 @@ class Candidate(models.Model):
         max_length=50,
         db_index=True,
     )
-    date_of_birth = models.DateField(
-        _("Birth date"),
-        blank=True,
-        null=True
-    )
+    date_of_birth = models.DateField(_("Birth date"), blank=True, null=True)
     gender = models.CharField(
         verbose_name=_("Gender"),
         max_length=1,
