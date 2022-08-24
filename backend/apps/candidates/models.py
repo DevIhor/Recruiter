@@ -23,6 +23,12 @@ class Candidate(models.Model):
         a contact number of the candidate
     email : str
         a contact email of the candidate
+    level_of_english : str
+        a candidate's level of English
+    notes : str
+        additional info about the candidate
+    additional_contacts : str
+        additional contact info of the candidate
     age : int
         age of the candidate
     updated_at : date
@@ -37,7 +43,17 @@ class Candidate(models.Model):
         MALE = "M", _("Male")
         FEMALE = "F", _("Female")
         OTHER = "O", _("Other")
-    
+
+    class EnglishLevelChoices(models.TextChoices):
+        """This class provides enum for levels of English."""
+        UNKNOWN = "A0", _("Unknown")
+        BEGINNER = "A1", _("Beginner")
+        ELEMENTARY = "A2", _("Elementary")
+        INTERMEDIATE = "B1", _("Intermediate")
+        UPPER_INTERMEDIATE = "B2", _("Upper-intermediate")
+        ADVANCED = "C1", _("Advanced")
+        PROFICIENCY = "C2", _("Proficiency")
+
     class Meta:
         """Standard Meta class for Candidate model."""
         ordering = ("surname", "name")
@@ -54,7 +70,7 @@ class Candidate(models.Model):
     )
     date_of_birth = models.DateField(
         _("Birth date"),
-        blank=True, 
+        blank=True,
         null=True
     )
     gender = models.CharField(
@@ -65,7 +81,7 @@ class Candidate(models.Model):
     )
     phone_number = PhoneNumberField(
         verbose_name=_("Phone number"),
-        blank=True,
+        unique=True,
         db_index=True,
     )
     email = models.EmailField(
@@ -74,11 +90,24 @@ class Candidate(models.Model):
         blank=True,
         db_index=True,
     )
+    level_of_english = models.CharField(
+        verbose_name=_("Level of English"),
+        max_length=2,
+        choices=EnglishLevelChoices.choices,
+        default=EnglishLevelChoices.UNKNOWN,
+    )
     notes = models.TextField(
         _("Additional info"),
-        max_length=255,
+        max_length=1200,
         blank=True,
         null=True,
+    )
+    additional_contacts = models.TextField(
+        _("Additional contacts"),
+        max_length=400,
+        blank=True,
+        null=True,
+        help_text="Here you can store additional contacts, like Skype.",
     )
     updated_at = models.DateTimeField(
         _("Last update"),
@@ -92,8 +121,11 @@ class Candidate(models.Model):
     )
 
     @property
-    def age(self):
+    def age(self) -> int:
         """Return age of the candidate"""
+        if not self.date_of_birth:
+            return 0
+
         from datetime import date
 
         today = date.today()
@@ -101,14 +133,14 @@ class Candidate(models.Model):
         return today.year - self.date_of_birth.year - ((today.month, today.day) < month_day)
 
     @property
-    def full_name(self):
+    def full_name(self) -> str:
         """Return full name of the Candidate."""
         return f"{self.name} {self.surname}"
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Return full name of the Candidate."""
         return self.full_name
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """Return Candidate name and its id."""
         return f"{self.__class__.__name__}(id={self.id})"
