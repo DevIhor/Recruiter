@@ -1,3 +1,6 @@
+from datetime import date
+
+from django.core.validators import MaxValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
@@ -71,7 +74,12 @@ class Candidate(models.Model):
         max_length=50,
         db_index=True,
     )
-    date_of_birth = models.DateField(_("Birth date"), blank=True, null=True)
+    date_of_birth = models.DateField(
+        _("Birth date"),
+        validators=[MaxValueValidator(limit_value=date.today)],
+        blank=True,
+        null=True,
+    )
     gender = models.CharField(
         verbose_name=_("Gender"),
         max_length=1,
