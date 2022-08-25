@@ -133,8 +133,6 @@ class Candidate(models.Model):
         if not self.date_of_birth:
             return 0
 
-        from datetime import date
-
         today = date.today()
         month_day = (self.date_of_birth.month, self.date_of_birth.day)
         return today.year - self.date_of_birth.year - ((today.month, today.day) < month_day)
