@@ -22,7 +22,7 @@ SECRET_KEY = os.environ.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -51,7 +51,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',   # new
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # new
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -122,7 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT  = os.path.join(BASE_DIR, 'staticfiles') 
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 MEDIA_URL = "media/"
 
@@ -133,18 +133,18 @@ if DEBUG:
     MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
 
 elif USING_AWS_S3_BUCKET_FOR_STORAGE:
-    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
+    AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+    AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
 
-    AWS_S3_FILE_OVERWRITE = False       # so that files with the same name are not overwritten.
-    AWS_DEFAULT_ACL = None              # file will be private per Amazon’s default.
+    AWS_S3_FILE_OVERWRITE = False  # so that files with the same name are not overwritten.
+    AWS_DEFAULT_ACL = None  # file will be private per Amazon’s default.
 
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
 else:
     # For using media on the server, additional server configuration is required.
-    MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")   
+    MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -161,4 +161,3 @@ CORS_ALLOWED_ORIGINS = [
 # Available HTTP methods and headers that are allowed for the actual request.
 CORS_ALLOW_METHODS = list(default_methods) + []
 CORS_ALLOW_HEADERS = list(default_headers) + []
-
