@@ -26,16 +26,26 @@ In order to test this project on your local machine, do the following:
 
 - Clone this repo to your local machine using the following command:
 
-```git
+```bash
 git clone https://github.com/DevIhor/Recruiter.git
 ```
 
-- Run the following commands:
+- Navigate into the folder and install the requirements by running the following command:
 
 ```bash
 pip install -r requirements.txt
+```
+
+- Make the migrations to prepare the database
+
+```bash
 python manage.py makemigrations
 python manage.py migrate
+```
+
+- Run the server by the following command
+
+```
 python manage.py runserver
 ```
 
