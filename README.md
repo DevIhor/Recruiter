@@ -36,16 +36,16 @@ git clone https://github.com/DevIhor/Recruiter.git
 pip install -r requirements.txt
 ```
 
-- Make the migrations to prepare the database
+- Make the migrations to prepare the database:
 
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-- Run the server by the following command
+- Run the server by the following command:
 
-```
+```bash
 python manage.py runserver
 ```
 
@@ -53,7 +53,12 @@ The project should be available on your localhost, check the output of your comm
 
 ## Test environment
 
-- TODO
+We are using [coverage.py](https://coverage.readthedocs.io/en/6.4.4/) for testing and coverage.
+Run the tests by running:
+
+```bash
+coverage run manage.py test
+```
 
 ## Deployment instructions
 
