@@ -37,8 +37,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Installed apps
     "corsheaders",
+    "taggit",
     # Custom apps
     "apps.accounts",
+    "apps.vacancies",
 ]
 
 MIDDLEWARE = [
@@ -136,3 +138,5 @@ CORS_ALLOWED_ORIGINS = [
 # Available HTTP methods and headers that are allowed for the actual request.
 CORS_ALLOW_METHODS = list(default_methods) + []
 CORS_ALLOW_HEADERS = list(default_headers) + []
+
+TAGGIT_CASE_INSENSITIVE = True
