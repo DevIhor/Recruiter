@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Installed apps
     "corsheaders",
+    "taggit",
+    # Custom apps
+    "apps.accounts",
+    "apps.vacancies",
     "storages",
     "phonenumber_field",
     # Custom apps
@@ -163,6 +167,10 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_METHODS = list(default_methods) + []
 CORS_ALLOW_HEADERS = list(default_headers) + []
 
+
+TAGGIT_CASE_INSENSITIVE = True
+
 # Email
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "emails")
+
