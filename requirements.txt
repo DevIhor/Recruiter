@@ -14,6 +14,7 @@ django-cors-headers==3.13.0
 django-taggit==3.0.0
 django-storages==1.13.1
 django-phonenumber-field==6.3.0
+django-versatileimagefield==2.2
 filelock==3.8.0
 flake8==5.0.4
 flake8-bugbear==22.8.23
@@ -25,6 +26,7 @@ mypy-extensions==0.4.3
 nodeenv==1.7.0
 pathspec==0.9.0
 phonenumberslite==8.12.54
+Pillow==9.2.0
 platformdirs==2.5.2
 pre-commit==2.20.0
 pre-commit-hooks==4.3.0
@@ -32,6 +34,7 @@ pycodestyle==2.9.1
 pyflakes==2.5.0
 python-dateutil==2.8.2
 python-dotenv==0.20.0
+python-magic==0.4.27
 PyYAML==6.0
 ruamel.yaml==0.17.21
 ruamel.yaml.clib==0.2.6
