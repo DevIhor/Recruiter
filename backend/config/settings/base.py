@@ -138,3 +138,7 @@ CORS_ALLOWED_ORIGINS = [
 # Available HTTP methods and headers that are allowed for the actual request.
 CORS_ALLOW_METHODS = list(default_methods) + []
 CORS_ALLOW_HEADERS = list(default_headers) + []
+
+# Email
+EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "emails")
