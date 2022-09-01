@@ -4,13 +4,14 @@ from django.utils.translation import gettext_lazy as _
 from .models import Currency, Vacancy
 
 
+@admin.register(Vacancy)
 class VacancyAdmin(admin.ModelAdmin):
 
     """This class defines Vacancy model for use in admin panel."""
 
     list_display = (
         "title",
-        "show_min_experience",
+        "min_experience",
         "is_active",
         "search_period",
         "keyword_list",
@@ -54,5 +55,4 @@ class VacancyAdmin(admin.ModelAdmin):
         return ", ".join(o.name for o in obj.keywords.all())
 
 
-admin.site.register(Vacancy, VacancyAdmin)
 admin.site.register(Currency)

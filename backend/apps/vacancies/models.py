@@ -32,6 +32,20 @@ class Currency(models.Model):
         return f"{self.currency_code.upper()}: {self.currency_title}"
 
 
+class ExperienceChoice(models.TextChoices):
+
+    WITHOUT = "0M", _("Without experience")
+    MONTH_3 = "3M", _("3 months")
+    MONTH_6 = "6M", _("6 months")
+    MONTH_9 = "9M", _("9 months")
+    YEAR_1 = "1Y", _("1 year")
+    YEAR_1_5 = "1.5Y", _("1,5 year")
+    YEAR_2 = "2Y", _("2 years")
+    YEAR_3 = "3Y", _("3 years")
+    YEAR_4 = "4Y", _("4 years")
+    YEAR_5 = "5Y", _("5 years")
+
+
 class Vacancy(models.Model):
 
     """
@@ -62,7 +76,7 @@ class Vacancy(models.Model):
         priority in vacancies
     salary_max : int
         maximum salary
-    min_max : int
+    salary_min : int
         minimum salary
     author : str
         author by vacancy
@@ -83,7 +97,13 @@ class Vacancy(models.Model):
     english_level = models.CharField(
         _("English level"), choices=EnglishLevelChoices.choices, db_index=True, max_length=32
     )
-    min_experience = models.FloatField(_("Minimum experience in years"), db_index=True, blank=True)
+    min_experience = models.CharField(
+        _("Minimum experience in years"),
+        max_length=4,
+        choices=ExperienceChoice.choices,
+        db_index=True,
+        blank=True,
+    )
     end_date = models.DateField(_("Recruitment end date"))
     start_date = models.DateField(_("Recruitment start date"))
     description = models.TextField(_("Description"), max_length=2048)
@@ -109,12 +129,6 @@ class Vacancy(models.Model):
         if self.salary_min == self.salary_max:
             return f"{self.salary_max} {self.salary_currency.currency_code}"
         return f"{self.salary_min}-{self.salary_max} {self.salary_currency.currency_code}"
-
-    @property
-    def show_min_experience(self):
-        if self.min_experience:
-            return f"{self.min_experience} years"
-        return "without min experience"
 
     @property
     def search_period(self):
