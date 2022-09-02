@@ -36,13 +36,15 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Installed apps
+    "ckeditor",
     "corsheaders",
-    "taggit",
     "phonenumber_field",
     "storages",
+    "taggit",
     # Custom apps
     "apps.accounts",
     "apps.candidates",
+    "apps.emails",
     "apps.events",
     "apps.vacancies",
 ]
