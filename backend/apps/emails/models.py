@@ -36,7 +36,7 @@ class EmailTemplate(models.Model):
         handler for sending it. it supports HTML, django standard templates
         and custom templates. Read docs on the 'body' attribule for info.
     render_subject(context: dict, candidate=None, vacancy=None)
-        same as render_body, but used for rendering
+        same as render_body, but used for rendering a subject
 
     """
 
@@ -53,11 +53,11 @@ class EmailTemplate(models.Model):
     )
     created_at = models.DateTimeField(
         _("Created at"),
-        auto_now=True,
+        auto_now_add=True,
     )
     changed_at = models.DateTimeField(
         _("Last updated"),
-        auto_now_add=True,
+        auto_now=True,
     )
     subject = models.CharField(
         _("Subject"),
@@ -109,7 +109,7 @@ class EmailTemplate(models.Model):
         later used as HTML attachment for EmailMultiAlternatives.
         """
         return Template(self.body).render(
-            Context(context | self._form_keywords(candidate, vacancy))
+            Context(context | self._generate_keywords(candidate, vacancy))
         )
 
     def render_subject(
@@ -117,10 +117,10 @@ class EmailTemplate(models.Model):
     ) -> str:
         """Renders subjects for the email."""
         return Template(self.subject).render(
-            Context(context | self._form_keywords(candidate, vacancy))
+            Context(context | self._generate_keywords(candidate, vacancy))
         )
 
-    def _form_keywords(self, candidate: Candidate = None, vacancy: Vacancy = None) -> dict:
+    def _generate_keywords(self, candidate: Candidate = None, vacancy: Vacancy = None) -> dict:
         """Forms keywords if objects were attached to the Template. For each attached
         object a dictionary for context substitution is formed. Read help message
         in 'body' field for more info.
