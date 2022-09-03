@@ -38,13 +38,16 @@ INSTALLED_APPS = [
     # Installed apps
     "corsheaders",
     "taggit",
+    "rest_framework",
+    "django_filters",
+    "drf_yasg",
+    "rest_framework_simplejwt",
     # Custom apps
-    "apps.accounts",
-    "apps.vacancies",
     "storages",
     "phonenumber_field",
     # Custom apps
     "apps.accounts",
+    "apps.vacancies",
     "apps.candidates",
 ]
 
@@ -110,6 +113,20 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_RENDERER_CLASSES": (
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.TemplateHTMLRenderer",
+    ),
+    "DEFAULT_THROTTLE_RATES": {
+        "anon": "1/second",
+        "user": "10/second",
+    },
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+}
+
 AUTH_USER_MODEL = "accounts.User"
 
 # Internationalization
@@ -173,4 +190,3 @@ TAGGIT_CASE_INSENSITIVE = True
 # Email
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "emails")
-
