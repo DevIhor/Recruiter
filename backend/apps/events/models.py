@@ -128,7 +128,7 @@ class Event(models.Model):
     )
     owner = models.ForeignKey(
         "accounts.Profile",
-        related_name="events_owner",
+        related_name="owner_events",
         on_delete=models.CASCADE,
     )
     staff_participants = models.ManyToManyField(
@@ -203,3 +203,8 @@ class Event(models.Model):
         """Marks event as completed."""
         self.status = EventStatusChoices.COMPLETED
         self.save(update_fields=["status"])
+
+    def save(self, **kwargs) -> None:
+        """Save method was updated for adding duration."""
+        self.duration = self.end_time - self.start_time
+        return super().save(**kwargs)

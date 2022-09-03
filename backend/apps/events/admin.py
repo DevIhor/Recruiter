@@ -5,23 +5,23 @@ from django.utils.translation import gettext_lazy as _
 
 @admin.action(description="Mark selected events as completed")
 def make_completed(self, request, queryset):
-    for el in queryset:
-        el.mark_as_completed()
-        el.save()
+    for event in queryset:
+        event.mark_as_completed()
+        event.save()
 
 
 @admin.action(description="Mark selected events as cancelled")
 def make_cancelled(self, request, queryset):
-    for el in queryset:
-        el.mark_as_cancelled()
-        el.save()
+    for event in queryset:
+        event.mark_as_cancelled()
+        event.save()
 
 
 @admin.action(description="Mark selected events as active")
 def make_active(self, request, queryset):
-    for el in queryset:
-        el.mark_as_active()
-        el.save()
+    for event in queryset:
+        event.mark_as_active()
+        event.save()
 
 
 @admin.register(EventType)
