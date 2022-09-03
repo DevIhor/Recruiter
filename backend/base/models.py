@@ -20,3 +20,26 @@ class EnglishLevelChoices(models.TextChoices):
     UPPER_INTERMEDIATE = "B2", _("Upper-intermediate")
     ADVANCED = "C1", _("Advanced")
     PROFICIENCY = "C2", _("Proficiency")
+
+
+class EmploymentChoices(models.TextChoices):
+    """This class provides enum for employment level."""
+
+    FULL_TIME = "FT", _("Full time")
+    PART_TIME = "PT", _("Part time")
+    OTHER = "OT", _("Other")
+
+
+class ExperienceChoice(models.TextChoices):
+    """This class provides enum for experience level."""
+
+    WITHOUT = "0M", _("Without experience")
+    MONTH_3 = "3M", _("3 months")
+    MONTH_6 = "6M", _("6 months")
+    MONTH_9 = "9M", _("9 months")
+    YEAR_1 = "1Y", _("1 year")
+    YEAR_1_5 = "1.5Y", _("1,5 year")
+    YEAR_2 = "2Y", _("2 years")
+    YEAR_3 = "3Y", _("3 years")
+    YEAR_4 = "4Y", _("4 years")
+    YEAR_5 = "5Y", _("5 years")
