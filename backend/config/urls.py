@@ -1,10 +1,9 @@
+from config.jwt_tokens import jwt_token_obtain, jwt_token_refresh
+from config.swagger import swagger_pattern
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-
-from .jwt_tokens import jwt_token_obtain, jwt_token_refresh
-from .swagger import swagger_pattern
 
 urlpatterns = [
     swagger_pattern,
