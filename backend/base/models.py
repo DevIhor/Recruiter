@@ -43,3 +43,26 @@ class ExperienceChoice(models.TextChoices):
     YEAR_3 = "3Y", _("3 years")
     YEAR_4 = "4Y", _("4 years")
     YEAR_5 = "5Y", _("5 years")
+
+
+class PriorityChoices(models.IntegerChoices):
+    """This class provides priorities for events."""
+
+    UNSPECIFIED = 0, _("Unspecified")
+    LOW = 1, _("Low")
+    MODERATE = 2, _("Moderate")
+    HIGH = 3, _("High")
+    CRITICAL = 4, _("Critical")
+
+    __empty__ = _("(Unknown)")
+
+
+class EventStatusChoices(models.IntegerChoices):
+    """This class provides statuses for events."""
+
+    CANCELLED = 0, _("Cancelled")
+    ACTIVE = 1, _("Active")
+    COMPLETED = 2, _("Completed")
+
+    __empty__ = _("(Unspecified)")
+

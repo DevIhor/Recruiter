@@ -37,19 +37,23 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # Installed apps
+    "ckeditor",
     "corsheaders",
-    "taggit",
     "rest_framework",
     "django_filters",
     "drf_yasg",
     "rest_framework_simplejwt",
     # Custom apps
-    "storages",
     "phonenumber_field",
+    "storages",
+    "taggit",
     # Custom apps
     "apps.accounts",
     "apps.vacancies",
     "apps.candidates",
+    "apps.emails",
+    "apps.events",
+    "apps.vacancies",
 ]
 
 MIDDLEWARE = [
