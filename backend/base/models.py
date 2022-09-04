@@ -65,4 +65,3 @@ class EventStatusChoices(models.IntegerChoices):
     COMPLETED = 2, _("Completed")
 
     __empty__ = _("(Unspecified)")
-
