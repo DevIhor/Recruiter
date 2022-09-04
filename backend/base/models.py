@@ -20,3 +20,25 @@ class EnglishLevelChoices(models.TextChoices):
     UPPER_INTERMEDIATE = "B2", _("Upper-intermediate")
     ADVANCED = "C1", _("Advanced")
     PROFICIENCY = "C2", _("Proficiency")
+
+
+class PriorityChoices(models.IntegerChoices):
+    """This class provides priorities for events."""
+
+    UNSPECIFIED = 0, _("Unspecified")
+    LOW = 1, _("Low")
+    MODERATE = 2, _("Moderate")
+    HIGH = 3, _("High")
+    CRITICAL = 4, _("Critical")
+
+    __empty__ = _("(Unknown)")
+
+
+class EventStatusChoices(models.IntegerChoices):
+    """This class provides statuses for events."""
+
+    CANCELLED = 0, _("Cancelled")
+    ACTIVE = 1, _("Active")
+    COMPLETED = 2, _("Completed")
+
+    __empty__ = _("(Unspecified)")

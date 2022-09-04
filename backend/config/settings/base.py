@@ -38,14 +38,13 @@ INSTALLED_APPS = [
     # Installed apps
     "corsheaders",
     "taggit",
-    # Custom apps
-    "apps.accounts",
-    "apps.vacancies",
-    "storages",
     "phonenumber_field",
+    "storages",
     # Custom apps
     "apps.accounts",
     "apps.candidates",
+    "apps.events",
+    "apps.vacancies",
 ]
 
 MIDDLEWARE = [
@@ -173,4 +172,3 @@ TAGGIT_CASE_INSENSITIVE = True
 # Email
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "emails")
-
