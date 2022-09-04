@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 from pathlib import Path
 
 from corsheaders.defaults import default_headers, default_methods
@@ -38,11 +39,17 @@ INSTALLED_APPS = [
     # Installed apps
     "ckeditor",
     "corsheaders",
+    "rest_framework",
+    "django_filters",
+    "drf_yasg",
+    "rest_framework_simplejwt",
+    # Custom apps
     "phonenumber_field",
     "storages",
     "taggit",
     # Custom apps
     "apps.accounts",
+    "apps.vacancies",
     "apps.candidates",
     "apps.emails",
     "apps.events",
@@ -110,6 +117,26 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_RENDERER_CLASSES": (
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.TemplateHTMLRenderer",
+    ),
+    "DEFAULT_THROTTLE_RATES": {
+        "anon": "1/second",
+        "user": "10/second",
+    },
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=14),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=90),
+    "AUTH_HEADER_TYPES": ("JWT",),
+}
 
 AUTH_USER_MODEL = "accounts.User"
 
