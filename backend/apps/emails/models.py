@@ -28,6 +28,8 @@ class EmailTemplate(models.Model):
         template body text, which is then rendered into HTML email
     subject : str
         template subject text, which is then rendered into subject
+    author : Profile
+        author of the template
 
     Methods
     --------------
@@ -92,6 +94,12 @@ class EmailTemplate(models.Model):
             "-----------<br/><br/>You can use your own, which you can later add "
             "while sending emails."
         ),
+    )
+
+    author = models.ForeignKey(
+        "accounts.Profile",
+        related_name="email_templates",
+        on_delete=models.CASCADE,
     )
 
     def __str__(self) -> str:
