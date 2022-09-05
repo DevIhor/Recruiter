@@ -1,0 +1,16 @@
+{% load i18n %}
+{% load account_extras %}
+
+{% autoescape off %}
+    <h1>{% translate "Email confirmation" %}</h1>
+
+    <p>{% translate "Hello"%}</p>
+
+    <p>{% translate "You're receiving this email because you requested to verify your email address." %}</p>
+
+    <p>{% translate "Please click on the link to confirm your email address:" %}</p>
+
+    {% load_option "SITE_URL" as site_url %}
+    <p><a href="{{ site_url }}{% url 'email_confirm' user_id=user_id token=token %}">
+        {{ site_url }}{% url 'email_confirm' user_id=user_id token=token %}</a></p>
+{% endautoescape %}
