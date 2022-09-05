@@ -42,3 +42,4 @@ class CandidateAdmin(admin.ModelAdmin):
         "level_of_english",
         "vacancy",
     )
+

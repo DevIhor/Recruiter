@@ -86,3 +86,4 @@ class VacancyAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Currency)
+

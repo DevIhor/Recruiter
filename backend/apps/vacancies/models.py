@@ -116,3 +116,4 @@ class Vacancy(models.Model):
             )
         if self.salary_max < self.salary_min:
             raise ValidationError(_("The minimum salary cannot be higher than the maximum!"))
+
