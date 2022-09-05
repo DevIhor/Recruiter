@@ -94,6 +94,9 @@ class Vacancy(models.Model):
     def __str__(self):
         return self.title
 
+    def __repr__(self):
+        return f"{self.__class__.__name__}(id={self.id})"
+
     @property
     def salary(self):
         if self.salary_min == self.salary_max:
