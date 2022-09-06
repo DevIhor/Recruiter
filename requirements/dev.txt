@@ -22,6 +22,7 @@ pycodestyle==2.9.1
 pyflakes==2.5.0
 python-magic-bin==0.4.14
 PyYAML==6.0
+requests-mock==1.10.0
 ruamel.yaml.clib==0.2.6
 ruamel.yaml==0.17.21
 toml==0.10.2
