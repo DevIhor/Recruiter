@@ -11,7 +11,7 @@ def activate(self, request, queryset):
         vacancy.save()
 
 
-@admin.action(description="Mark selected vacancies as deactive")
+@admin.action(description="Mark selected vacancies as inactive")
 def deactivate(self, request, queryset):
     for vacancy in queryset:
         vacancy.is_active = False

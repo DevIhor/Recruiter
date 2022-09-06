@@ -111,7 +111,7 @@ class Candidate(models.Model):
     )
     vacancy = models.ManyToManyField(
         "vacancies.Vacancy",
-        related_name="vacanciess",
+        related_name="vacancies",
         verbose_name=_("Vacancies"),
         blank=True,
     )
