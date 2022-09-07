@@ -36,6 +36,11 @@ class User(PermissionsMixin, AbstractBaseUser):
         determines whether user is active
     is_staff : bool
         determines whether user has admin rights
+    
+    Methods
+    ----------
+    has_group(name: str)
+        returns True if user is in group
 
     """
 
@@ -67,6 +72,14 @@ class User(PermissionsMixin, AbstractBaseUser):
     def is_admin(self):
         """Has access to the admin site?"""
         return self.is_staff
+
+    def has_group(self, name: str) -> bool:
+        """Return True if user is in group"""
+        return self.groups.filter(name__in=name).exists()
+
+    def user_groups(self) -> str:
+        """Return list of user groups"""
+        return ", ".join([group.name for group in self.groups.all()])
 
 
 class Profile(models.Model):
