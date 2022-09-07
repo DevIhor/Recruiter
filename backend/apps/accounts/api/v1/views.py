@@ -87,7 +87,7 @@ class UserLoginView(CreateAPIView):
             send_verification_email.delay(user_id=user.id)  # run celery task to send an email
             return Response(
                 {
-                    "message": "You has not activated your account yet."
+                    "message": "You have not activated your account yet."
                     "Verification email has been sent to your email address. "
                     "Please check your inbox."
                 },
