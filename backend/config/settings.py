@@ -2,6 +2,7 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+import dj_database_url
 from corsheaders.defaults import default_headers, default_methods
 from dotenv import load_dotenv
 
@@ -10,21 +11,19 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-PROJECT_NAME = os.environ.get("PROJECT_NAME", "recruiter")
-SITE_URL = os.environ.get("SITE_URL", "")
+PROJECT_NAME = os.environ.get("PROJECT_NAME")
+SITE_URL = os.environ.get("SITE_URL")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get(
-    "SECRET_KEY", "django-insecure--83cbi1qt3gr_94n&2w0)4m=w_x_as_g3t%f93$h=9^f=nr&l)"
-)
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG_MODE") == "YES"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
 
 
 # Application definition
@@ -91,12 +90,17 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+if DEBUG:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": dj_database_url.config(default=os.environ.get("DATABASE_URL")),
+    }
 
 
 # Password validation
@@ -161,7 +165,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = "media/"
 
-USING_AWS_S3_BUCKET_FOR_STORAGE = False
+USING_AWS_S3_BUCKET_FOR_STORAGE = os.environ.get("USING_AWS_S3_BUCKET_FOR_STORAGE") == "YES"
 
 # Here, the storage location of the media files is determined.
 if DEBUG:
@@ -174,7 +178,7 @@ elif USING_AWS_S3_BUCKET_FOR_STORAGE:
     AWS_S3_FILE_OVERWRITE = False  # so that files with the same name are not overwritten.
     AWS_DEFAULT_ACL = None  # file will be private per Amazon’s default.
 
-    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE")
 else:
     # For using media on the server, additional server configuration is required.
     MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
@@ -187,9 +191,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # List of sites from which you can make requests to this project.
 # To enable CORS_ALLOWED_ORIGINS, change CORS_ALLOW_ALL_ORIGINS to False
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:8000",
-]
+CORS_ALLOW_ALL_ORIGINS = os.environ.get("CORS_ALLOW_ALL_ORIGINS") == "YES"
+
+if not CORS_ALLOW_ALL_ORIGINS:
+    CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS").split(",")
 
 # Available HTTP methods and headers that are allowed for the actual request.
 CORS_ALLOW_METHODS = list(default_methods) + []
@@ -199,10 +204,16 @@ CORS_ALLOW_HEADERS = list(default_headers) + []
 TAGGIT_CASE_INSENSITIVE = True
 
 # Email
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND")
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "emails")
-DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "noreply@cpb.com")
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
+EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS") == "YES"
+EMAIL_HOST = os.environ.get("EMAIL_HOST")
+EMAIL_PORT = os.environ.get("EMAIL_PORT")
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 
 # Celery
-CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "redis://localhost:6379")
+CELERY_BROKER_URL = os.environ.get("REDIS_URL")
+CELERY_RESULT_BACKEND = os.environ.get("REDIS_URL")
 CELERY_TASK_TIME_LIMIT = 5 * 60
