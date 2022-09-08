@@ -38,3 +38,20 @@ def send_verification_email(self, user_id: int) -> None:
         )
     except smtplib.SMTPException as ex:
         self.retry(exc=ex)
+
+
+@app.task(bind=True, default_retry_delay=1 * 60)
+def send_email_to_user(
+    self, mail_subject: str, plain_message: str, send_to: list[str], html_message: str
+) -> None:
+    try:
+        send_mail(
+            subject=mail_subject,
+            message=plain_message,
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=send_to,
+            html_message=html_message,
+            fail_silently=False,
+        )
+    except smtplib.SMTPException as ex:
+        self.retry(exc=ex)

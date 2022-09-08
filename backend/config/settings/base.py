@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "django_filters",
+    "django_rest_passwordreset",
     "drf_yasg",
     "rest_framework_simplejwt",
     "phonenumber_field",
