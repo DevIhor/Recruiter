@@ -217,3 +217,17 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 CELERY_BROKER_URL = os.environ.get("REDIS_URL")
 CELERY_RESULT_BACKEND = os.environ.get("REDIS_URL")
 CELERY_TASK_TIME_LIMIT = 5 * 60
+
+if DEBUG:
+    SWAGGER_SETTINGS = {
+        "exclude_namespaces": [],
+        "SECURITY_DEFINITIONS": {
+            "JWT": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header",
+            },
+        },
+        "SUPPORTED_SUBMIT_METHODS": ["get", "put", "post", "delete", "patch"],
+        "SHOW_REQUEST_HEADERS": True,
+    }
