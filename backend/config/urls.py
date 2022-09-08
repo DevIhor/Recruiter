@@ -11,6 +11,7 @@ urlpatterns = [
     jwt_token_refresh,
     path("admin/", admin.site.urls),
     path("api/v1/accounts/", include("apps.accounts.api.v1.routes")),
+    path("api/v1/", include("apps.vacancies.api.v1.routes")),
 ]
 
 if settings.DEBUG:

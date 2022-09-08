@@ -118,9 +118,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 20,
     "DEFAULT_RENDERER_CLASSES": (
         "rest_framework.renderers.JSONRenderer",
-        "rest_framework.renderers.TemplateHTMLRenderer",
     ),
     "DEFAULT_THROTTLE_RATES": {
         "anon": "1/second",
@@ -206,3 +207,13 @@ DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "noreply@cpb.com")
 # Celery
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL", "redis://localhost:6379")
 CELERY_TASK_TIME_LIMIT = 5 * 60
+
+# Swagger
+SWAGGER_SETTINGS = {
+    "exclude_namespaces": [],
+    "USE_SESSION_AUTH": False,
+    "PERSIST_AUTH": True,
+    "SECURITY_DEFINITIONS": {"Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"}},
+    "SUPPORTED_SUBMIT_METHODS": ["get", "put", "post", "delete", "patch"],
+    "SHOW_REQUEST_HEADERS": True,
+}
