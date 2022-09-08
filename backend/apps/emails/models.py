@@ -244,6 +244,7 @@ class EmailLetter(models.Model):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
+        related_name="letters",
     )
     vacancy = models.ForeignKey(
         to=Vacancy,
@@ -251,17 +252,17 @@ class EmailLetter(models.Model):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
+        related_name="letters",
     )
     recipients = models.ManyToManyField(
         to=Candidate,
         verbose_name=_("Recipients"),
+        related_name="sent_letters",
     )
 
     @property
     def sent_time(self) -> str:
-        if self.sent_at:
-            return self.sent_at
-        return "Not available"
+        return self.sent_at or "Not available"
 
     def mark_in_progress(self):
         """Mark as 'In Progress'."""
