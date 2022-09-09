@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_filters",
     "drf_yasg",
+    "import_export",
     "rest_framework_simplejwt",
     "phonenumber_field",
     "storages",

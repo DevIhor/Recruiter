@@ -1,15 +1,26 @@
+from apps.candidates.models import Candidate
 from base.widgets import DateSelectorWidget
 from django.contrib import admin
 from django.db.models import DateField
 from django.utils.translation import gettext_lazy as _
+from import_export import resources
+from import_export.admin import ImportExportMixin
 
-from .models import Candidate
+
+class CandidateResource(resources.ModelResource):
+    """This allows users to export/import Candidates."""
+
+    class Meta:
+        model = Candidate
+        skip_unchanged = True
+        report_skipped = True
 
 
 @admin.register(Candidate)
-class CandidateAdmin(admin.ModelAdmin):
+class CandidateAdmin(ImportExportMixin, admin.ModelAdmin):
     """This class defines Candidate model for use in admin panel."""
 
+    resource_class = CandidateResource
     list_display = (
         "full_name",
         "age",
