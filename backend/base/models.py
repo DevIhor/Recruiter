@@ -65,3 +65,12 @@ class EventStatusChoices(models.IntegerChoices):
     COMPLETED = 2, _("Completed")
 
     __empty__ = _("(Unspecified)")
+
+
+class EmailStatus(models.IntegerChoices):
+    """This class defines status of an email."""
+
+    CREATED = 0, _("Created")
+    IN_PROCESS = 1, _("In process")
+    SENT = 2, _("Sent")
+    FAILED = 3, _("Failed")
