@@ -60,7 +60,6 @@ class CurrencyTestCase(TestCase):
         )
         self.assertEqual(response.status_code, 201)
 
-
     def test_authorized_user_update_currency(self):
         """Authorized users can update currency"""
 
@@ -74,13 +73,11 @@ class CurrencyTestCase(TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
-
     def test_authorized_user_delete_currency(self):
         """Authorized users can delete currency"""
 
         response = self.client.delete(reverse("currency", args=(1,)))
         self.assertEqual(response.status_code, 204)
-
 
     # Testing non-authorized user
     def test_non_authorized_user_create_currency(self):
@@ -97,7 +94,6 @@ class CurrencyTestCase(TestCase):
         )
         self.assertEqual(response.status_code, 401)
 
-
     def test_non_authorized_user_update_currency(self):
         """Unauthorized users cannot update currency"""
 
@@ -111,7 +107,6 @@ class CurrencyTestCase(TestCase):
             format="json",
         )
         self.assertEqual(response.status_code, 401)
-
 
     def test_non_authorized_user_delete_currency(self):
         """Unauthorized users cannot delete currency"""

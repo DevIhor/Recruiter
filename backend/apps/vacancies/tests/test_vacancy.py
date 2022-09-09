@@ -79,7 +79,6 @@ class VacancyTestCase(TestCase):
         response_1 = self.client.get(reverse("vacancies"))
         self.assertEqual(response_1.status_code, 200)
 
-
     def test_vacancy_url(self):
         """Test of access to single of vacancy"""
 
@@ -102,10 +101,8 @@ class VacancyTestCase(TestCase):
         )
         self.assertEqual(response.status_code, 201)
 
-
     def test_authorized_user_create_vacancy_wrong_salary(self):
         """Authorized users cannot create wrong vacancy (wrong salary)"""
-
 
         self.vacancy_data["salary_min"] = 1500
         response = self.client.post(
@@ -114,7 +111,6 @@ class VacancyTestCase(TestCase):
             format="json"
         )
         self.assertEqual(response.status_code, 400)
-
 
     def test_authorized_user_create_vacancy_wrong_date(self):
         """Authorized users cannot create wrong vacancy (wrong date)"""
@@ -127,7 +123,6 @@ class VacancyTestCase(TestCase):
         )
         self.assertEqual(response.status_code, 400)
 
-
     def test_authorized_user_update_vacancy(self):
         """Authorized users can update vacancy"""
 
@@ -138,7 +133,6 @@ class VacancyTestCase(TestCase):
             format="json"
         )
         self.assertEqual(response.status_code, 200)
-
 
     def test_authorized_user_update_vacancy_wrong_salary(self):
         """Authorized users cannot update vacancy by wrong salary"""
@@ -151,7 +145,6 @@ class VacancyTestCase(TestCase):
         )
         self.assertEqual(response.status_code, 400)
 
-
     def test_authorized_user_update_vacancy_wrong_date(self):
         """Authorized users cannot update vacancy by wrong date"""
 
@@ -163,13 +156,11 @@ class VacancyTestCase(TestCase):
         )
         self.assertEqual(response.status_code, 400)
 
-
     def test_authorized_user_delete_vacancy(self):
         """Authorized users can delete vacancy"""
 
         response = self.client.delete(reverse("vacancy", args=(1,)))
         self.assertEqual(response.status_code, 204)
-
 
     # Testing non-authorized user
     def test_non_authorized_user_create_vacancy(self):
@@ -183,7 +174,6 @@ class VacancyTestCase(TestCase):
         )
         self.assertEqual(response.status_code, 401)
 
-
     def test_non_authorized_user_update_vacancy(self):
         """Unauthorized users cannot update vacancy"""
 
@@ -195,7 +185,6 @@ class VacancyTestCase(TestCase):
             format="json"
         )
         self.assertEqual(response.status_code, 401)
-
 
     def test_non_authorized_user_delete_vacancy(self):
         """Unauthorized users cannot update vacancy"""
