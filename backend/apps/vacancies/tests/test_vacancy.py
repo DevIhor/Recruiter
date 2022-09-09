@@ -65,8 +65,9 @@ class VacancyTestCase(TestCase):
             "salary_max": 1000,
             "salary_min": 800,
             "salary_currency": 1,
-            "author": 1,
-            "contact_person": 1,
+            "contact_person_data": {
+                "email": "test2@test.com"
+            },
             "is_active": True,
             "is_salary_show": False,
         }
@@ -88,7 +89,6 @@ class VacancyTestCase(TestCase):
         self.assertEqual(response_1.status_code, 200)
         self.assertEqual(response_2.status_code, 404)
         self.assertEqual(response_3.status_code, 404)
-
 
     # Testing authorized user
     def test_authorized_user_create_vacancy(self):

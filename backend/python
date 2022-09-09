@@ -1,4 +1,0 @@
-Operations to perform:
-  Apply all migrations: accounts, admin, auth, candidates, contenttypes, emails, events, sessions, taggit, vacancies
-Running migrations:
-  Applying vacancies.0002_alter_vacancy_is_active_alter_vacancy_is_salary_show... OK

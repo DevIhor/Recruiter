@@ -27,6 +27,9 @@ class VacancyListViewSet(ListCreateAPIView):
 
     search_fields = ["=title"]
 
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user, contact_person=self.request.user)
+
 
 class VacancyViewSet(RetrieveUpdateDestroyAPIView):
     """View for create, update, delete and view single Vacancy endpoint."""
@@ -35,6 +38,9 @@ class VacancyViewSet(RetrieveUpdateDestroyAPIView):
     serializer_class = VacancySerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
     renderer_classes = [JSONRenderer]
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
 
 
 class CurrencyListViewSet(ListCreateAPIView):

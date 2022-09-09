@@ -1,21 +1,48 @@
 from apps.vacancies.models import Currency, Vacancy
+from apps.accounts.models import User
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from taggit.serializers import TaggitSerializer, TagListSerializerField
 
 
+class UserSerializer(serializers.ModelSerializer):
+    """This is a serializer class for the User model."""
+    class Meta:
+
+        model = User
+        fields = ("email",)
+
+
 class VacancySerializer(serializers.ModelSerializer, TaggitSerializer):
-    """Serializer for CRUD Cacancy endpoint."""
+    """Serializer for CRUD Vacancy endpoint."""
 
     keywords = TagListSerializerField()
-    end_date = serializers.DateField()
-    start_date = serializers.DateField()
-    salary_max = serializers.IntegerField()
-    salary_min = serializers.IntegerField()
+
+    author_data = UserSerializer(source="author", read_only=True)
+    contact_person_data = UserSerializer(source="contact_person", read_only=True)
 
     class Meta:
         model = Vacancy
-        fields = "__all__"
+        fields = (
+            "id", 
+            "title",
+            "keywords",
+            "type_of_employment",
+            "location",
+            "english_level",
+            "min_experience",
+            "end_date",
+            "start_date",
+            "description",
+            "priority",
+            "salary_max",
+            "salary_min",
+            "salary_currency",
+            "is_active",
+            "is_salary_show",
+            "author_data",
+            "contact_person_data"
+        )
 
     def validate(self, data):
         if data["start_date"] > data["end_date"]:
@@ -32,4 +59,4 @@ class CurrencySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Currency
-        fields = "__all__"
+        fields = ("id", "currency_title", "currency_code")
