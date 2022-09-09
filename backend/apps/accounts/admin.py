@@ -8,7 +8,6 @@ from django.utils.translation import gettext_lazy as _
 from .forms import UserChangeForm, UserCreateForm
 from .models import Profile
 
-
 USER_MODEL = get_user_model()
 
 
@@ -30,6 +29,7 @@ def put_to_reviewers(self, request, queryset):
 
 class CustomUserInline(admin.TabularInline):
     """Class allows to add CustomUser in Group admin page."""
+
     model = USER_MODEL.groups.through
     extra = 1
 

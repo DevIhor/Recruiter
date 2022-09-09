@@ -36,7 +36,7 @@ class User(PermissionsMixin, AbstractBaseUser):
         determines whether user is active
     is_staff : bool
         determines whether user has admin rights
-    
+
     Methods
     ----------
     has_group(name: str)
