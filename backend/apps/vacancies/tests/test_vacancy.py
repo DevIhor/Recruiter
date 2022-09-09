@@ -127,12 +127,14 @@ class VacancyTestCase(TestCase):
         """Authorized users can update vacancy"""
 
         self.vacancy_data["title"] = "Updated Test developer"
-        response = self.client.patch(
+        response_1 = self.client.patch(
             reverse("vacancy", args=(1,)), 
             self.vacancy_data, 
             format="json"
         )
-        self.assertEqual(response.status_code, 200)
+        response_2 = self.client.get(reverse("vacancy", args=(1,)))
+        self.assertEqual(response_1.status_code, 200)
+        self.assertEqual(response_1.data["title"], response_2.data["title"])
 
     def test_authorized_user_update_vacancy_wrong_salary(self):
         """Authorized users cannot update vacancy by wrong salary"""
@@ -159,8 +161,10 @@ class VacancyTestCase(TestCase):
     def test_authorized_user_delete_vacancy(self):
         """Authorized users can delete vacancy"""
 
-        response = self.client.delete(reverse("vacancy", args=(1,)))
-        self.assertEqual(response.status_code, 204)
+        response_1 = self.client.delete(reverse("vacancy", args=(1,)))
+        response_2 = self.client.get(reverse("vacancy", args=(1,)))  
+        self.assertEqual(response_1.status_code, 204)
+        self.assertEqual(response_2.status_code, 404)
 
     # Testing non-authorized user
     def test_non_authorized_user_create_vacancy(self):

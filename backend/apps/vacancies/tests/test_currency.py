@@ -63,7 +63,7 @@ class CurrencyTestCase(TestCase):
     def test_authorized_user_update_currency(self):
         """Authorized users can update currency"""
 
-        response = self.client.patch(
+        response_1 = self.client.patch(
             reverse("currency", args=(1,)),
             {
                 "currency_title": "updated_currency",
@@ -71,13 +71,17 @@ class CurrencyTestCase(TestCase):
             },
             format="json",
         )
-        self.assertEqual(response.status_code, 200)
+        response_2 = self.client.get(reverse("currency", args=(1,)))
+        self.assertEqual(response_1.status_code, 200)
+        self.assertEqual(response_2.data, response_1.data)
 
     def test_authorized_user_delete_currency(self):
         """Authorized users can delete currency"""
 
-        response = self.client.delete(reverse("currency", args=(1,)))
-        self.assertEqual(response.status_code, 204)
+        response_1 = self.client.delete(reverse("currency", args=(1,)))
+        response_2 = self.client.get(reverse("currency", args=(1,)))
+        self.assertEqual(response_1.status_code, 204)
+        self.assertEqual(response_2.status_code, 404)
 
     # Testing non-authorized user
     def test_non_authorized_user_create_currency(self):
