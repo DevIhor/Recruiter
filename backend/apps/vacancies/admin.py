@@ -22,23 +22,24 @@ class VacancyAdmin(admin.ModelAdmin):
         "contact_person",
     )
 
-    list_filter = ("is_salary_show", "type_of_employment", "english_level")
+    list_filter = (
+        "is_salary_show", 
+        "type_of_employment", 
+        "english_level"
+    )
 
     search_fields = ("title",)
 
     fieldsets = (
-        (
-            _("Vacancy main info"),
-            {
-                "fields": (
-                    "title",
-                    "keywords",
-                    "type_of_employment",
-                    "location",
-                    "english_level",
-                    "min_experience",
-                )
-            },
+        (_("Vacancy main info"),{"fields": (
+                                "title",
+                                "keywords",
+                                "type_of_employment",
+                                "location",
+                                "english_level",
+                                "min_experience",
+                            )
+                        },
         ),
         (_("Search period"), {"fields": ("start_date", "end_date")}),
         (_("Salary"), {"fields": ("salary_min", "salary_max", "salary_currency")}),

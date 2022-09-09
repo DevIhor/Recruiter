@@ -1,7 +1,7 @@
-from rest_framework import serializers
-from taggit.serializers import TagListSerializerField, TaggitSerializer
+from apps.vacancies.models import Currency, Vacancy
 from django.utils.translation import gettext_lazy as _
-from apps.vacancies.models import Vacancy, Currency
+from rest_framework import serializers
+from taggit.serializers import TaggitSerializer, TagListSerializerField
 
 
 class VacancySerializer(serializers.ModelSerializer, TaggitSerializer):
@@ -19,13 +19,11 @@ class VacancySerializer(serializers.ModelSerializer, TaggitSerializer):
 
     def validate(self, data):
         if data["start_date"] > data["end_date"]:
-            raise serializers.ValidationError(
-                _("The end date must be after the start date!")
-                )
+            raise serializers.ValidationError(_("The end date must be after the start date!"))
         if data["salary_min"] > data["salary_max"]:
             raise serializers.ValidationError(
                 _("The maximum salary must be greater than the minimum salary!")
-                )
+            )
         return data
 
 

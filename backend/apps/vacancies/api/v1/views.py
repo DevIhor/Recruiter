@@ -1,10 +1,10 @@
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.filters import SearchFilter, OrderingFilter
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from apps.vacancies.api.v1.serializers import CurrencySerializer, VacancySerializer
+from apps.vacancies.models import Currency, Vacancy
 from django_filters.rest_framework import DjangoFilterBackend
-
-from apps.vacancies.api.v1.serializers import VacancySerializer, CurrencySerializer
-from apps.vacancies.models import Vacancy, Currency
+from rest_framework.filters import OrderingFilter, SearchFilter
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.renderers import JSONRenderer
 
 
 class VacancyListViewSet(ListCreateAPIView):
@@ -13,23 +13,19 @@ class VacancyListViewSet(ListCreateAPIView):
     queryset = Vacancy.objects.all()
     serializer_class = VacancySerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    renderer_classes = [JSONRenderer]
 
-    filter_backends = [
-        DjangoFilterBackend, 
-        SearchFilter, 
-        OrderingFilter
-        ]
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = (
-        "type_of_employment", 
-        "location", 
-        "english_level", 
-        "min_experience", 
-        "is_active", 
-        "is_salary_show", 
-        )
-    
-    search_fields = ['=title']
+        "type_of_employment",
+        "location",
+        "english_level",
+        "min_experience",
+        "is_active",
+        "is_salary_show",
+    )
 
+    search_fields = ["=title"]
 
 
 class VacancyViewSet(RetrieveUpdateDestroyAPIView):
@@ -38,6 +34,7 @@ class VacancyViewSet(RetrieveUpdateDestroyAPIView):
     queryset = Vacancy.objects.all()
     serializer_class = VacancySerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    renderer_classes = [JSONRenderer]
 
 
 class CurrencyListViewSet(ListCreateAPIView):
@@ -45,7 +42,8 @@ class CurrencyListViewSet(ListCreateAPIView):
 
     queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticated]
+    renderer_classes = [JSONRenderer]
 
 
 class CurrencyViewSet(RetrieveUpdateDestroyAPIView):
@@ -53,5 +51,5 @@ class CurrencyViewSet(RetrieveUpdateDestroyAPIView):
 
     queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
+    permission_classes = [IsAuthenticated]
+    renderer_classes = [JSONRenderer]

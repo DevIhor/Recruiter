@@ -122,6 +122,7 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 20,
     "DEFAULT_RENDERER_CLASSES": (
         "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.TemplateHTMLRenderer",
     ),
     "DEFAULT_THROTTLE_RATES": {
         "anon": "1/second",
