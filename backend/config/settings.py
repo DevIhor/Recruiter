@@ -220,14 +220,17 @@ CELERY_RESULT_BACKEND = os.environ.get("REDIS_URL")
 CELERY_TASK_TIME_LIMIT = 5 * 60
 
 # SWAGGER
-SWAGGER_SETTINGS = {
-    "exclude_namespaces": [],
-    "USE_SESSION_AUTH": False,
-    "PERSIST_AUTH": True,
-    "SECURITY_DEFINITIONS": {"Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"}},
-    "SUPPORTED_SUBMIT_METHODS": ["get", "put", "post", "delete", "patch"],
-    "SHOW_REQUEST_HEADERS": True,
-}
+if DEBUG:
+    SWAGGER_SETTINGS = {
+        "exclude_namespaces": [],
+        "USE_SESSION_AUTH": False,
+        "PERSIST_AUTH": True,
+        "SECURITY_DEFINITIONS": {
+            "Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"}
+        },
+        "SUPPORTED_SUBMIT_METHODS": ["get", "put", "post", "delete", "patch"],
+        "SHOW_REQUEST_HEADERS": True,
+    }
 
 REDOC_SETTINGS = {
     "LAZY_RENDERING": False,
