@@ -1,6 +1,6 @@
 from base.widgets import DateSelectorWidget
 from django.contrib import admin
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, models
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.db.models import DateField
 from django.utils.translation import gettext_lazy as _
@@ -9,13 +9,44 @@ from .forms import UserChangeForm, UserCreateForm
 from .models import Profile
 
 
-@admin.register(get_user_model())
+USER_MODEL = get_user_model()
+
+
+@admin.action(description="Add to Recruiters")
+def put_to_recruiters(self, request, queryset):
+    group = models.Group.objects.get(name="Recruiter")
+    for user in queryset:
+        if not user.has_group("Recruiter"):
+            user.groups.add(group)
+
+
+@admin.action(description="Add to Reviewers")
+def put_to_reviewers(self, request, queryset):
+    group = models.Group.objects.get(name="Reviewer")
+    for user in queryset:
+        if not user.has_group("Reviewer"):
+            user.groups.add(group)
+
+
+class CustomUserInline(admin.TabularInline):
+    """Class allows to add CustomUser in Group admin page."""
+    model = USER_MODEL.groups.through
+    extra = 1
+
+
+@admin.register(USER_MODEL)
 class UserAdmin(BaseUserAdmin):
     """This class defines User representation at AdminBoard."""
 
+    actions = (
+        put_to_recruiters,
+        put_to_reviewers,
+    )
+
+    inlines = (CustomUserInline,)
     form = UserChangeForm
     add_form = UserCreateForm
-    list_display = ("id", "email", "is_staff", "is_active")
+    list_display = ("id", "email", "is_staff", "is_active", "user_groups")
     list_filter = ("is_staff",)
     fieldsets = (
         (_("Login info"), {"fields": ("email", "password")}),
