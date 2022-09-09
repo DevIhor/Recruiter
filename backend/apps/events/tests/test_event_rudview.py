@@ -5,7 +5,7 @@ from rest_framework.reverse import reverse
 from rest_framework.test import APIClient
 
 
-class TestEventsListView(TestCase):
+class TestRetrieveUpdateDestroyEventView(TestCase):
     """This class tests RetrieveUpdateDestroyEventView."""
 
     def setUp(self) -> None:
