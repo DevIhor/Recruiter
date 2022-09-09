@@ -178,7 +178,7 @@ elif USING_AWS_S3_BUCKET_FOR_STORAGE:
     AWS_S3_FILE_OVERWRITE = False  # so that files with the same name are not overwritten.
     AWS_DEFAULT_ACL = None  # file will be private per Amazon’s default.
 
-    DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE")
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 else:
     # For using media on the server, additional server configuration is required.
     MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
