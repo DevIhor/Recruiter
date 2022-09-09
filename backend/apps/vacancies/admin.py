@@ -4,10 +4,40 @@ from django.utils.translation import gettext_lazy as _
 from .models import Currency, Vacancy
 
 
+@admin.action(description="Mark selected vacancies as active")
+def activate(self, request, queryset):
+    for vacancy in queryset:
+        vacancy.is_active = True
+        vacancy.save()
+
+
+@admin.action(description="Mark selected vacancies as inactive")
+def deactivate(self, request, queryset):
+    for vacancy in queryset:
+        vacancy.is_active = False
+        vacancy.save()
+
+
+@admin.action(description="Show salary in selected vacancies")
+def salary_show(self, request, queryset):
+    for vacancy in queryset:
+        vacancy.is_salary_show = True
+        vacancy.save()
+
+
+@admin.action(description="Don't show salary in selected vacancies")
+def salary_dont_show(self, request, queryset):
+    for vacancy in queryset:
+        vacancy.is_salary_show = False
+        vacancy.save()
+
+
 @admin.register(Vacancy)
 class VacancyAdmin(admin.ModelAdmin):
 
     """This class defines Vacancy model for use in admin panel."""
+
+    actions = (activate, deactivate, salary_show, salary_dont_show)
 
     list_display = (
         "title",
@@ -25,7 +55,8 @@ class VacancyAdmin(admin.ModelAdmin):
     list_filter = (
         "is_salary_show", 
         "type_of_employment", 
-        "english_level"
+        "english_level",
+        "is_active"
     )
 
     search_fields = ("title",)
@@ -57,3 +88,4 @@ class VacancyAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Currency)
+

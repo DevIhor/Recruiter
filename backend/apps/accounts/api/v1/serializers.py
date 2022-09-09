@@ -20,3 +20,14 @@ class UserCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserModel
         fields = ("email", "password")
+
+
+class UserLoginSerializer(serializers.Serializer):
+    """Serializer for user login endpoint."""
+
+    email = serializers.EmailField()
+    password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = UserModel
+        fields = ("email", "password")

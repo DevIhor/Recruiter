@@ -109,6 +109,12 @@ class Candidate(models.Model):
         auto_now_add=True,
         editable=False,
     )
+    vacancy = models.ManyToManyField(
+        "vacancies.Vacancy",
+        related_name="vacancies",
+        verbose_name=_("Vacancies"),
+        blank=True,
+    )
 
     @property
     def age(self) -> int:
@@ -125,6 +131,10 @@ class Candidate(models.Model):
         """Return full name of the Candidate."""
         return f"{self.name} {self.surname}"
 
+    @property
+    def applications_for_vacancies(self) -> str:
+        return "; ".join([f"{i.title}" for i in self.vacancy.all()])
+
     def __str__(self) -> str:
         """Return full name of the Candidate."""
         return self.full_name
@@ -132,3 +142,4 @@ class Candidate(models.Model):
     def __repr__(self) -> str:
         """Return Candidate name and its id."""
         return f"{self.__class__.__name__}(id={self.id})"
+
