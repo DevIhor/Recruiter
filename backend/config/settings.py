@@ -220,7 +220,6 @@ CELERY_BROKER_URL = os.environ.get("REDIS_URL")
 CELERY_RESULT_BACKEND = os.environ.get("REDIS_URL")
 CELERY_TASK_TIME_LIMIT = 5 * 60
 
-# SWAGGER
 if DEBUG:
     SWAGGER_SETTINGS = {
         "exclude_namespaces": [],
@@ -232,7 +231,3 @@ if DEBUG:
         "SUPPORTED_SUBMIT_METHODS": ["get", "put", "post", "delete", "patch"],
         "SHOW_REQUEST_HEADERS": True,
     }
-
-REDOC_SETTINGS = {
-    "LAZY_RENDERING": False,
-}
