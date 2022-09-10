@@ -34,7 +34,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
 
 class UserLoginSerializer(serializers.Serializer):
-    """Serializer for user login endpoint."""
+    """Serializer for user login api endpoint."""
 
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
@@ -42,3 +42,38 @@ class UserLoginSerializer(serializers.Serializer):
     class Meta:
         model = UserModel
         fields = ("email", "password")
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    """Serializer for the user's profile."""
+
+    class Meta:
+        model = Profile
+        fields = (
+            "first_name",
+            "last_name",
+            "date_of_birth",
+            "gender",
+            "address",
+            "phone_number",
+            "avatar_image",
+            "linkedin_url",
+            "telegram_username",
+            "additional_info",
+            "created_at",
+            "updated_at",
+        )
+
+
+class UserListSerializer(serializers.ModelSerializer):
+    """Serializer for user list api endpoint."""
+
+    profile_info = ProfileSerializer(source="user_profile")
+
+    class Meta:
+        model = UserModel
+        fields = (
+            "id",
+            "email",
+            "profile_info",
+        )
