@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "apps.candidates",
     "apps.emails",
     "apps.events",
+    "apps.cover_letters",
 ]
 
 MIDDLEWARE = [

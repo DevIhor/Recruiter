@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
-from .models import Currency, Vacancy
+from apps.vacancies.models import Currency, Vacancy
 
 
 @admin.action(description="Mark selected vacancies as active")
