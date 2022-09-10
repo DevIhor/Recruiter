@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "django_filters",
+    "django_rest_passwordreset",
     "drf_yasg",
     "rest_framework_simplejwt",
     "phonenumber_field",
@@ -229,4 +230,3 @@ if DEBUG:
         "SUPPORTED_SUBMIT_METHODS": ["get", "put", "post", "delete", "patch"],
         "SHOW_REQUEST_HEADERS": True,
     }
-    

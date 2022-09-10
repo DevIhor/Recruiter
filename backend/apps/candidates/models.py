@@ -142,4 +142,3 @@ class Candidate(models.Model):
     def __repr__(self) -> str:
         """Return Candidate name and its id."""
         return f"{self.__class__.__name__}(id={self.id})"
-
