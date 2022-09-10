@@ -1,3 +1,4 @@
+from apps.accounts.models import Profile
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
@@ -7,19 +8,29 @@ UserModel = get_user_model()
 class UserCreateSerializer(serializers.ModelSerializer):
     """Serializer for user creation endpoint."""
 
+    first_name = serializers.CharField(required=True)
+    last_name = serializers.CharField(required=True)
     password = serializers.CharField(write_only=True)
 
     def create(self, validated_data):
-        """Create and return a new user."""
+        """Create a new user and a new profile for this user. Return user."""
+
         user = UserModel.objects.create_user(
             email=validated_data.get("email"),
             password=validated_data.get("password"),
         )
+
+        Profile.objects.create(
+            user=user,
+            first_name=validated_data.get("first_name"),
+            last_name=validated_data.get("last_name"),
+        )
+
         return user
 
     class Meta:
         model = UserModel
-        fields = ("email", "password")
+        fields = ("first_name", "last_name", "email", "password")
 
 
 class UserLoginSerializer(serializers.Serializer):
