@@ -1,10 +1,12 @@
 import requests
 from apps.accounts.api.v1.filters import UserFilter
 from apps.accounts.api.v1.paginators import UserListPagination
+from apps.accounts.api.v1.permissions import IsUserAccount
 from apps.accounts.api.v1.serializers import (
     UserCreateSerializer,
     UserListSerializer,
     UserLoginSerializer,
+    UserRetrieveUpdateDestroySerializer,
 )
 from apps.accounts.tasks import send_verification_email
 from django.contrib.auth import get_user_model
@@ -14,7 +16,7 @@ from django.urls import reverse
 from django_filters import rest_framework as django_filters
 from rest_framework import filters, permissions, status
 from rest_framework.decorators import api_view
-from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 
 UserModel = get_user_model()
@@ -112,7 +114,7 @@ class UserLoginAPIView(CreateAPIView):
 
 class UserListAPIView(ListAPIView):
     """
-    LIST view for the user Model.
+    LIST view for the User model.
 
     API
     ---
@@ -145,3 +147,50 @@ class UserListAPIView(ListAPIView):
             .annotate(first_name=F("user_profile__first_name"))
             .annotate(last_name=F("user_profile__last_name"))
         )
+
+
+class UserRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
+    """
+    GET / UPDATE / DELETE view for the User model.
+
+    API
+    ---
+    get <id>:
+        Return a User with its Profile info.
+
+    put <id>:
+        Update a User with its Profile info.
+
+    patch <id>:
+        Partially update a User with its Profile info.
+
+    delete <id>:
+        Deactivate the user account without complete deletion.
+
+    """
+
+    serializer_class = UserRetrieveUpdateDestroySerializer
+    permission_classes = [permissions.IsAuthenticated, IsUserAccount]
+
+    def get_queryset(self):
+        return UserModel.objects.filter(is_active=True)
+
+    def get(self, request, *args, **kwargs):
+        """Get User by id."""
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        """Update User by id."""
+        return self.update(request, *args, **kwargs)
+
+    def patch(self, request, *args, **kwargs):
+        """Partially update User by id."""
+        return self.partial_update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        """Don't actually delete the user, set User account as inactive instead."""
+        return self.destroy(request, *args, **kwargs)
+
+    def perform_destroy(self, instance):
+        instance.is_active = False
+        instance.save()

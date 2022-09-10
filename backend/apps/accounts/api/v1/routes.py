@@ -9,4 +9,5 @@ urlpatterns = [
     path("password_reset/", include("django_rest_passwordreset.urls", namespace="password_reset")),
     # USER CRUD
     path("users/", views.UserListAPIView.as_view(), name="user_list"),
+    path("users/<int:pk>/", views.UserRetrieveUpdateDestroyAPIView.as_view(), name="user_detail"),
 ]

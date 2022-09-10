@@ -45,7 +45,7 @@ class UserLoginSerializer(serializers.Serializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    """Serializer for the user's profile."""
+    """Serializer for the Profile model."""
 
     class Meta:
         model = Profile
@@ -63,10 +63,11 @@ class ProfileSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
         )
+        read_only_fields = ("created_at", "updated_at")
 
 
 class UserListSerializer(serializers.ModelSerializer):
-    """Serializer for user list api endpoint."""
+    """Serializer for the user list api endpoint."""
 
     profile_info = ProfileSerializer(source="user_profile")
 
@@ -77,3 +78,32 @@ class UserListSerializer(serializers.ModelSerializer):
             "email",
             "profile_info",
         )
+
+
+class UserRetrieveUpdateDestroySerializer(serializers.ModelSerializer):
+    """Serializer for the user detail api endpoint."""
+
+    profile_info = ProfileSerializer(source="user_profile")
+
+    class Meta:
+        model = UserModel
+        fields = (
+            "id",
+            "email",
+            "profile_info",
+        )
+        read_only_fields = ("id",)
+
+    def update(self, instance, validated_data):
+        """Update user instance and its profile info. Return user."""
+
+        # update profile
+        profile_data = validated_data.pop("user_profile")
+        for k, v in profile_data.items():
+            setattr(instance.user_profile, k, v)
+        instance.user_profile.save()
+
+        # update user
+        instance.email = validated_data.get("email", instance.email)
+        instance.save()
+        return instance
