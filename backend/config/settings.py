@@ -21,9 +21,9 @@ SITE_URL = os.environ.get("SITE_URL")
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG_MODE") == "YES"
+DEBUG = True  #os.environ.get("DEBUG_MODE") == "YES"
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
+ALLOWED_HOSTS = ['*']  #os.environ.get("ALLOWED_HOSTS").split(",")
 
 
 # Application definition

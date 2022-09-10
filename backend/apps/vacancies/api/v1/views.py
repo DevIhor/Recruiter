@@ -39,7 +39,7 @@ class VacancyViewSet(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     renderer_classes = [JSONRenderer]
 
-    def perform_create(self, serializer):
+    def perform_update(self, serializer):
         serializer.save(author=self.request.user)
 
 
