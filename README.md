@@ -109,7 +109,7 @@ We are using [coverage.py](https://coverage.readthedocs.io/en/6.4.4/) for testin
 Run the tests by running:
 
 ```bash
-coverage run manage.py test
+coverage run -m pytest
 coverage report
 ```
 
