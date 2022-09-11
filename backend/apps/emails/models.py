@@ -173,7 +173,7 @@ class EmailTemplate(models.Model):
                 {
                     "event_title": event.title,
                     "event_description": event.description,
-                    "event_type": event.type,
+                    "event_type": event.event_type,
                     "event_st": event.start_time,
                     "event_et": event.end_time,
                     "event_duration": event.duration,
