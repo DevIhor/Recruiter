@@ -11,6 +11,8 @@ urlpatterns = [
     jwt_token_refresh,
     path("admin/", admin.site.urls),
     path("api/v1/accounts/", include("apps.accounts.api.v1.routes")),
+    path("api/v1/vacancies/", include("apps.vacancies.api.v1.routes_vac")),
+    path("api/v1/currencies/", include("apps.vacancies.api.v1.routes_curr")),
     path(
         "api/v1/candidates/",
         include(("apps.candidates.api.v1.routes", "candidates"), namespace="candidates"),
