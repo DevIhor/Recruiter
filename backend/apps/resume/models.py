@@ -2,15 +2,15 @@ from django.db import models
 from apps.candidates.models import Candidate
 from apps.vacancies.models import Vacancy
 from django.utils.translation import gettext_lazy as _
-from apps.cover_letters.storages import OverwriteStorage
+from apps.resume.storages import OverwriteStorage
 
 
 def content_file_name(instance, filename):
-    file_path = '/'.join(['cv', instance.owner.full_name, filename])
+    file_path = "/".join(["cv", instance.owner.full_name, filename])
     return file_path
 
 
-class CoverLetter(models.Model):
+class CurriculumVitae(models.Model):
     """
     This class represents a CV model, which can be used to create
     CV, download files, and manage them.

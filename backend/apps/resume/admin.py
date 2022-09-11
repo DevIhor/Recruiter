@@ -1,10 +1,10 @@
 from django.contrib import admin
-from apps.cover_letters.models import CoverLetter
+from apps.resume.models import CurriculumVitae
 
 
-@admin.register(CoverLetter)
+@admin.register(CurriculumVitae)
 class CoverLetterAdmin(admin.ModelAdmin):
-    """This class registers CoverLetter model at admin site."""
+    """This class registers Curriculum Vitae (CV) model at admin site."""
 
     list_display = (
         "owner", 
