@@ -164,7 +164,7 @@ class Event(models.Model):
         auto_now_add=True,
     )
     status = models.IntegerField(
-        _("Priority level"),
+        _("Status"),
         choices=EventStatusChoices.choices,
         default=1,
     )
