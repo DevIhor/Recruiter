@@ -32,7 +32,7 @@ The following list contains information of what is used in this project.
 [![DRF](https://img.shields.io/badge/DRF-3.13.1-green?style=for-the-badge)](https://www.django-rest-framework.org/)
 [![Celery](https://img.shields.io/badge/Celery-5.2.7-green?style=for-the-badge)](https://docs.celeryq.dev/en/stable/)
 [![Redis](https://img.shields.io/badge/Redis-4.3.4-green?style=for-the-badge)](https://redis.io/docs/)
-[![PostreSQL](https://img.shields.io/badge/PostreSQL-15.4-green?style=for-the-badge)](https://www.postgresql.org/docs/)
+[![PostreSQL](https://img.shields.io/badge/PostreSQL-12.12-green?style=for-the-badge)](https://www.postgresql.org/docs/)
 
 We are using Jira for Kanban board:
 
@@ -60,7 +60,10 @@ DEBUG_MODE=YES
 ## Commands
 
 ```bash
-# Run apply migrations migrations
+# Run to create migrations
+python manage.py makemigrations
+
+# Run apply migrations
 python manage.py migrate
 
 # Collect static into Storage
@@ -71,6 +74,12 @@ python manage.py createsuperuser
 
 # To enter interactive Django shell
 python manage.py shell
+
+# To run a development server
+python manage.py runserver
+
+# To run a celery worker
+celery -A config.celery worker --loginfo=info
 ```
 
 ## Development Environment
@@ -86,7 +95,7 @@ git clone https://github.com/DevIhor/Recruiter.git
 - Navigate into the folder and install the requirements by running the following command:
 
 ```bash
-cd Recruiter && pip install -r requirements.txt
+cd Recruiter && pip install -r requirements/base.txt
 ```
 
 - Make the migrations to prepare the database:
@@ -115,4 +124,4 @@ coverage report
 
 ## Deployment instructions
 
-- TODO
+Live server is available at [this link](http://65.109.3.1/swagger/).
