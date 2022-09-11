@@ -51,7 +51,7 @@ class EventAdmin(ImportExportMixin, admin.ModelAdmin):
     actions = (make_completed, make_active, make_cancelled)
 
     list_display = ("title", "event_type", "status", "priority", "start_time", "duration", "owner")
-    list_filter = ("duration", "owner", "event_type", "priority")
+    list_filter = ("owner", "event_type", "priority")
     list_per_page = 25
 
     search_fields = (
