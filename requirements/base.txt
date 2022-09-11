@@ -13,14 +13,17 @@ dj-database-url==1.0.0
 django-ckeditor==6.5.0
 django-cors-headers==3.13.0
 django-filter==22.1
+django-import-export==2.8.0
 django-js-asset==2.0.0
 django-phonenumber-field==6.3.0
+django-rest-passwordreset==1.2.1
 django-storages==1.13.1
 django-taggit==3.0.0
 django-versatileimagefield==2.2
 djangorestframework==3.13.1
 djangorestframework-simplejwt==5.2.0
 drf-yasg==1.21.3
+factory-boy==3.2.1
 idna==3.3
 inflection==0.5.1
 itypes==1.2.0

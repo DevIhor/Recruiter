@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "django_filters",
+    "django_rest_passwordreset",
     "drf_yasg",
+    "import_export",
     "rest_framework_simplejwt",
     "phonenumber_field",
     "storages",
@@ -52,6 +54,7 @@ INSTALLED_APPS = [
     "apps.candidates",
     "apps.emails",
     "apps.events",
+    "apps.resume",
 ]
 
 MIDDLEWARE = [
@@ -161,7 +164,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = "media/"
 
@@ -218,6 +221,7 @@ CELERY_BROKER_URL = os.environ.get("REDIS_URL")
 CELERY_RESULT_BACKEND = os.environ.get("REDIS_URL")
 CELERY_TASK_TIME_LIMIT = 5 * 60
 
+# SWAGGER
 if DEBUG:
     SWAGGER_SETTINGS = {
         "exclude_namespaces": [],
@@ -229,3 +233,7 @@ if DEBUG:
         "SUPPORTED_SUBMIT_METHODS": ["get", "put", "post", "delete", "patch"],
         "SHOW_REQUEST_HEADERS": True,
     }
+
+REDOC_SETTINGS = {
+    "LAZY_RENDERING": False,
+}

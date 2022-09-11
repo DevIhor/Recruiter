@@ -1,7 +1,12 @@
+from apps.vacancies.models import Currency, Vacancy
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
-from .models import Currency, Vacancy
+from apps.vacancies.models import Currency, Vacancy
+
+from import_export import resources
+from import_export.admin import ImportExportMixin
+
 
 
 @admin.action(description="Mark selected vacancies as active")
@@ -32,10 +37,20 @@ def salary_dont_show(self, request, queryset):
         vacancy.save()
 
 
-@admin.register(Vacancy)
-class VacancyAdmin(admin.ModelAdmin):
+class VacancyResource(resources.ModelResource):
+    """This allows users to export/import Vacancies."""
 
+    class Meta:
+        model = Vacancy
+        skip_unchanged = True
+        report_skipped = True
+
+
+@admin.register(Vacancy)
+class VacancyAdmin(ImportExportMixin, admin.ModelAdmin):
     """This class defines Vacancy model for use in admin panel."""
+
+    resource_class = VacancyResource
 
     actions = (activate, deactivate, salary_show, salary_dont_show)
 
@@ -52,23 +67,25 @@ class VacancyAdmin(admin.ModelAdmin):
         "contact_person",
     )
 
-    list_filter = ("is_salary_show", "type_of_employment", "english_level", "is_active")
+    list_filter = (
+        "is_salary_show", 
+        "type_of_employment", 
+        "english_level",
+        "is_active"
+    )
 
     search_fields = ("title",)
 
     fieldsets = (
-        (
-            _("Vacancy main info"),
-            {
-                "fields": (
-                    "title",
-                    "keywords",
-                    "type_of_employment",
-                    "location",
-                    "english_level",
-                    "min_experience",
-                )
-            },
+        (_("Vacancy main info"),{"fields": (
+                                "title",
+                                "keywords",
+                                "type_of_employment",
+                                "location",
+                                "english_level",
+                                "min_experience",
+                            )
+                        },
         ),
         (_("Search period"), {"fields": ("start_date", "end_date")}),
         (_("Salary"), {"fields": ("salary_min", "salary_max", "salary_currency")}),
