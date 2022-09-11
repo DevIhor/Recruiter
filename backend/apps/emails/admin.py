@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 @admin.action(description="Send emails")
 def send_emails_admin(self, request, queryset):
     for email in queryset:
-        send_emails.delay(email_letter=email)
+        send_emails.delay(email_letter=email.id)
 
 
 @admin.register(EmailTemplate)
