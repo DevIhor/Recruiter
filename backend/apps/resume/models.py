@@ -5,8 +5,8 @@ from django.utils.translation import gettext_lazy as _
 from apps.resume.storages import OverwriteStorage
 
 
-def content_file_name(instance, filename):
-    file_path = "/".join(["cv", instance.owner.full_name, filename])
+def genarate_file_path(instance, filename):
+    file_path = f"cv/{instance.owner.full_name}/{filename}"
     return file_path
 
 
@@ -46,7 +46,7 @@ class CurriculumVitae(models.Model):
         blank=True,
     )
     file = models.FileField(
-        upload_to=content_file_name,
+        upload_to=genarate_file_path,
         verbose_name=_("CV file"),
         storage=OverwriteStorage(),
     )
