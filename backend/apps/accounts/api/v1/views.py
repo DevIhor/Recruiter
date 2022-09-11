@@ -132,13 +132,13 @@ class UserListAPIView(ListAPIView):
         filters.OrderingFilter,
     ]
     filterset_class = UserFilter
-    search_fields = ["=email", "user_profile__first_name", "user_profile__last_name"]
-    ordering_fields = ["email", "first_name", "last_name"]
-    ordering = ["first_name", "last_name"]
+    search_fields = ("=email", "user_profile__first_name", "user_profile__last_name")
+    ordering_fields = ("email", "first_name", "last_name")
+    ordering = ("first_name", "last_name")
 
     def get_queryset(self):
         """
-        Annotate a queryset to ba able to use user's `first_name` and `last_name`
+        Annotate a queryset to be able to use user's `first_name` and `last_name`
         with `ordering` query parameter.
         """
 
@@ -170,7 +170,7 @@ class UserRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     """
 
     serializer_class = UserRetrieveUpdateDestroySerializer
-    permission_classes = [permissions.IsAuthenticated, IsUserAccount]
+    permission_classes = (permissions.IsAuthenticated, IsUserAccount)
 
     def get_queryset(self):
         return UserModel.objects.filter(is_active=True)
@@ -193,4 +193,4 @@ class UserRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 
     def perform_destroy(self, instance):
         instance.is_active = False
-        instance.save()
+        instance.save(update_fields=["is_active"])

@@ -28,4 +28,4 @@ class UserListTestCase(APITestCase):
         response = self.client.get(self.user_list_url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.json().get("count"), 5)
+        self.assertEqual(response.data.get("count"), 5)
