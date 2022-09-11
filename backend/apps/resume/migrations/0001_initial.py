@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                     "file",
                     models.FileField(
                         storage=apps.resume.storages.OverwriteStorage(),
-                        upload_to=apps.resume.models.content_file_name,
+                        upload_to=apps.resume.models.generate_file_path,
                         verbose_name="CV file",
                     ),
                 ),
