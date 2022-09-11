@@ -14,8 +14,7 @@ class CurriculumVitaeAdmin(admin.ModelAdmin):
         "cv_for_vacancies"
     )
     list_filter = (
-        "owner", 
-        "processed_by_tesseract"
+        "processed_by_tesseract",
     )
     list_per_page = 25
     search_fields = (
