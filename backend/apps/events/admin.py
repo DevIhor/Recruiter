@@ -1,6 +1,8 @@
 from apps.events.models import Event, EventType
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+from import_export import resources
+from import_export.admin import ImportExportMixin
 
 
 @admin.action(description="Mark selected events as completed")
@@ -31,9 +33,20 @@ class EventTypeAdmin(admin.ModelAdmin):
     list_display = ("id", "title")
 
 
+class EventResource(resources.ModelResource):
+    """This allows users to export/import Events."""
+
+    class Meta:
+        model = Event
+        skip_unchanged = True
+        report_skipped = True
+
+
 @admin.register(Event)
-class EventAdmin(admin.ModelAdmin):
+class EventAdmin(ImportExportMixin, admin.ModelAdmin):
     """This class registers Event model at admin site."""
+
+    resource_class = EventResource
 
     actions = (make_completed, make_active, make_cancelled)
 

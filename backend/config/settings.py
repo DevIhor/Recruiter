@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django_filters",
     "django_rest_passwordreset",
     "drf_yasg",
+    "import_export",
     "rest_framework_simplejwt",
     "phonenumber_field",
     "storages",
