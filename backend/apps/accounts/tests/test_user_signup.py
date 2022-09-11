@@ -19,7 +19,12 @@ class UserSignUpTestCase(APITestCase):
         """Ensure we can create a new inactive user."""
 
         url = reverse("signup")
-        data = {"email": "testuser@ex.com", "password": "random_string"}
+        data = {
+            "first_name": "John",
+            "last_name": "Doe",
+            "email": "testuser@ex.com",
+            "password": "random_string",
+        }
 
         response = self.client.post(url, data, format="json")
 
@@ -33,7 +38,12 @@ class UserSignUpTestCase(APITestCase):
         """Ensure we can't create a new user with the existing email address."""
 
         url = reverse("signup")
-        data = {"email": "testuser@ex.com", "password": "random_string"}
+        data = {
+            "first_name": "John",
+            "last_name": "Doe",
+            "email": "testuser@ex.com",
+            "password": "random_string",
+        }
 
         # Method GET is not allowed
         response = self.client.get(url, data, format="json")

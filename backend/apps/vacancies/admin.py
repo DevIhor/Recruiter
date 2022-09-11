@@ -1,7 +1,8 @@
+from apps.vacancies.models import Currency, Vacancy
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
-
-from .models import Currency, Vacancy
+from import_export import resources
+from import_export.admin import ImportExportMixin
 
 
 @admin.action(description="Mark selected vacancies as active")
@@ -32,10 +33,20 @@ def salary_dont_show(self, request, queryset):
         vacancy.save()
 
 
-@admin.register(Vacancy)
-class VacancyAdmin(admin.ModelAdmin):
+class VacancyResource(resources.ModelResource):
+    """This allows users to export/import Vacancies."""
 
+    class Meta:
+        model = Vacancy
+        skip_unchanged = True
+        report_skipped = True
+
+
+@admin.register(Vacancy)
+class VacancyAdmin(ImportExportMixin, admin.ModelAdmin):
     """This class defines Vacancy model for use in admin panel."""
+
+    resource_class = VacancyResource
 
     actions = (activate, deactivate, salary_show, salary_dont_show)
 

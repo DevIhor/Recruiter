@@ -142,7 +142,12 @@ class Profile(models.Model):
         blank=True,
         max_length=255,
     )
-    phone_number = PhoneNumberField(verbose_name=_("Phone number"), unique=True)
+    phone_number = PhoneNumberField(
+        verbose_name=_("Phone number"),
+        unique=True,
+        null=True,
+        blank=True,
+    )
     avatar_image = VersatileImageField(
         _("Avatar picture"),
         null=True,
