@@ -3,7 +3,7 @@ from apps.resume.models import CurriculumVitae
 
 
 @admin.register(CurriculumVitae)
-class CoverLetterAdmin(admin.ModelAdmin):
+class CurriculumVitaeAdmin(admin.ModelAdmin):
     """This class registers Curriculum Vitae (CV) model at admin site."""
 
     list_display = (
