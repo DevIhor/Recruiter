@@ -61,11 +61,11 @@ class CurriculumVitae(models.Model):
     )
     created_at = models.DateTimeField(
         _("Created at"),
-        auto_now=True,
+        auto_now_add=True,
     )
     changed_at = models.DateTimeField(
         _("Last updated"),
-        auto_now_add=True,
+        auto_now=True,
     )
 
     class Meta:
@@ -77,7 +77,7 @@ class CurriculumVitae(models.Model):
 
     def __repr__(self) -> str:
         """Return debug info for the CV."""
-        return f"<CoverLetter (id={self.id}) - {self.owner}>"
+        return f"<CV (id={self.id}) - {self.owner}>"
     
     @property
     def cv_for_vacancies(self):
