@@ -94,7 +94,7 @@ class Vacancy(models.Model):
         max_length=32
     )
     min_experience = models.CharField(
-        _("Minimum experience in years"),
+        _("Minimum experience"),
         max_length=4,
         choices=ExperienceChoice.choices,
         db_index=True,
