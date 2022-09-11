@@ -1,8 +1,12 @@
 from apps.vacancies.models import Currency, Vacancy
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+
+from apps.vacancies.models import Currency, Vacancy
+
 from import_export import resources
 from import_export.admin import ImportExportMixin
+
 
 
 @admin.action(description="Mark selected vacancies as active")
