@@ -87,7 +87,7 @@ class Migration(migrations.Migration):
                         ],
                         db_index=True,
                         max_length=4,
-                        verbose_name="Minimum experience in years",
+                        verbose_name="Minimum experience",
                     ),
                 ),
                 ("end_date", models.DateField(verbose_name="Recruitment end date")),
