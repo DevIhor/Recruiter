@@ -1,7 +1,14 @@
+from apps.emails.tasks import send_emails
 from apps.emails.forms import HTMLTextField
 from apps.emails.models import EmailLetter, EmailTemplate
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
+
+
+@admin.action(description="Send emails")
+def send_emails_admin(self, request, queryset):
+    for email in queryset:
+        send_emails.delay(email_letter=email)
 
 
 @admin.register(EmailTemplate)
@@ -27,7 +34,7 @@ class EmailLetterAdmin(admin.ModelAdmin):
     list_per_page = 25
     list_display = ("name", "created_at", "status", "sent_time")
     search_fields = ("name", "template")
-
+    actions = (send_emails_admin,)
     fieldsets = (
         (_("General info"), {"fields": ("name", "template")}),
         (_("Extra info"), {"fields": ("vacancy", "event")}),
