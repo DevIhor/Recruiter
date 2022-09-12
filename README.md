@@ -95,7 +95,7 @@ git clone https://github.com/DevIhor/Recruiter.git
 - Navigate into the folder and install the requirements by running the following command:
 
 ```bash
-cd Recruiter && pip install -r requirements/base.txt
+cd Recruiter && pip install -r requirements/dev.txt
 ```
 
 - Make the migrations to prepare the database:
